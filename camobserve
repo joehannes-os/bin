@@ -1,0 +1,19 @@
+#!/usr/bin/zsh
+
+process() {
+	while read line; do
+		case "$line" in
+			UNBLANK*)
+				camshot "unblank"
+			;;
+			BLANK*)
+				camshot "blank"
+			;;
+			LOCK*)
+				camshot "lock"
+			;;
+		esac
+	done
+}
+
+xscreensaver-command -watch | process

@@ -1,0 +1,5 @@
+#!/usr/bin/zsh
+prefix="$1_"
+ts=`timedatectl | grep 'Local time:' | cut -c 35-`
+file="/home/joehannes/Pictures/autoshots/login_$prefix${ts:gs/\ /_}.jpeg"
+streamer -c /dev/video0 -s 1600x1200 -j 90 -b 24 -o "$file"
