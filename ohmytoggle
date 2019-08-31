@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ ! -z `xdotool search --all --name $1` ]; then
+	if [ `xdotool getactivewindow getwindowname` = $1 ]; then
+		xdotool windowminimize $(xdotool getactivewindow)
+	else
+		wmctrl -a $1
+	fi;
+else
+	eval `echo $1 | awk '{print tolower ($0)}'`
+fi;
+
+
+exit 0

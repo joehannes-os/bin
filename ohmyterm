@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ `xdotool getactivewindow getwindowname` = "Alacritty" ]; then
+	xdotool windowminimize $(xdotool getactivewindow)
+else
+	wmctrl -a "Alacritty"
+fi;
+
+exit 0
