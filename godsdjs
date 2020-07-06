@@ -1,0 +1,12 @@
+#!/usr/bin/zsh
+
+streamripper http://www.godsdjsradio.com:8080/stream.m3u -d ~/Music/stream -s -D "%A - %T" -o larger -r 8080 --quiet &
+while true; do
+  sleep 7
+  if ! pgrep mplayer > /dev/null 2>&1; then
+    mplayer http://localhost:8080 > /dev/null 2>&1 &
+  fi
+done
+
+exit 0
+
