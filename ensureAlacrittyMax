@@ -1,0 +1,20 @@
+#!/bin/zsh
+
+tdrop -amt -s 'regular' alacritty
+
+sleep 1
+
+if [[ ! `wmctrl -lp | grep $(xprop -root | grep _NET_ACTIVE_WINDOW | head -1 | awk '{print $5}' | sed 's/,//' | sed 's/^0x/0x0/')` ]]; then
+  xfconf-query -c xfce4-panel -p /panels/panel-0/autohide-behavior -s 0
+elif [[ `xprop -id $(xdotool getactivewindow) | egrep "Alacritty"` ]]; then
+  xfconf-query -c xfce4-panel -p /panels/panel-0/autohide-behavior -s 2
+  wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
+else
+  if [[ `xwininfo -id $(xdotool getactivewindow) | egrep Corners | egrep '\+0\+0' | egrep '\-0\+0' | egrep '\-0\-0' | egrep '+0-0'` ]]; then
+    xfconf-query -c xfce4-panel -p /panels/panel-0/autohide-behavior -s 2
+  else
+    xfconf-query -c xfce4-panel -p /panels/panel-0/autohide-behavior -s 0
+  fi
+fi
+
+exit 0

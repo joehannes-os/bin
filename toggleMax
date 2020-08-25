@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+#if [ `xfconf-query -c xfce4-panel -p /panels/panel-0/autohide-behavior` -eq 0 ]; then
+
+if [ ! `xwininfo -id $(xdotool getactivewindow) | egrep Corners | egrep '\+0\+0' | egrep '\-0\+0' | egrep '\-0\-0' | egrep '+0-0'` ]; then
+  xfconf-query -c xfce4-panel -p /panels/panel-0/autohide-behavior -s 2
+  wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz
+else
+  xfconf-query -c xfce4-panel -p /panels/panel-0/autohide-behavior -s 0
+  wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz
+fi
+
+exit 0
