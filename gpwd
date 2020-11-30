@@ -1,0 +1,4 @@
+#!/usr/bin/zsh
+
+_gm=$(echo $0 | gitmux)
+if [[ $(echo $0 | gitmux) ]]; then echo $0 | gitmux -cfg ~/.gitmux.conf; else pwd | sed "s/${HOME:gs/\//\\\/}/~/"; fi
