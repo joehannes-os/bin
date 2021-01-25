@@ -1,4 +1,8 @@
-#!/usr/bin/zsh
+#!/bin/zsh
 
-_gm=$(echo $0 | gitmux)
-if [[ $(echo $0 | gitmux) ]]; then echo $0 | gitmux -cfg ~/.gitmux.conf; else pwd | sed "s/${HOME:gs/\//\\\/}/~/"; fi
+PWD=$1
+[[ "$PWD" =~ ^"$PWD"(/|$) ]] && PWD="🏡${PWD#$HOME}"
+GITMUX=$(gitmux $1)
+
+[ $GITMUX ] && gitmux -cfg ~/.gitmux.cfg $1 || echo $PWD
+
